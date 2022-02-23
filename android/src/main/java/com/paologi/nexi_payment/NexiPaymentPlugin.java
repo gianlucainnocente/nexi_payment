@@ -102,6 +102,11 @@ public class NexiPaymentPlugin implements FlutterPlugin, MethodCallHandler, Acti
     Log.i(TAG,"ApiFrontOfficeQPRequest initialized");
 //    xPay.FrontOffice.setEnvironment(isTest ? EnvironmentUtils.Environment.TEST : EnvironmentUtils.Environment.PROD);
 
+    HashMap<String, String> extraKeys = (HashMap<String, String>) call.argument("extraKeys");
+    apiFrontOfficeQPRequest.addExtraKey("urlpost", extraKeys.get("urlpost"));
+    if(extraKeys.get("selectedcard") != null)
+      apiFrontOfficeQPRequest.addExtraKey("selectedcard", extraKeys.get("selectedcard"));
+    
     FrontOfficeCallbackQP callback = new FrontOfficeCallbackQP() {
       @Override
       public void onConfirm(ApiFrontOfficeQPResponse apiFrontOfficeQPResponse) {
