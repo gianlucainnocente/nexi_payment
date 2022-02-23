@@ -63,12 +63,19 @@ public class SwiftNexiPaymentPlugin: NSObject, FlutterPlugin {
         if let myArgs = args as? [String: Any],
             let alias = myArgs["alias"] as? String,
             let codTrans = myArgs["codTrans"] as? String,
+            let urlpost = myArgs["urlpost"] as? String,
+            let selectedcard = myArgs["selectedcard"] as? String,
             let _ = myArgs["currency"] as? String,
             let amount = myArgs["amount"] as? Int {
 
 
           let apiFrontOfficeQPRequest = ApiFrontOfficeQPRequest(alias: alias, codTrans: codTrans, currency: CurrencyUtilsQP.EUR, amount: amount)
 
+              apiFrontOfficeQPRequest.ExtraParameters["urlpost"] = urlpost
+              
+              if(selectedcard != nil) {
+                apiFrontOfficeQPRequest.ExtraParameters["selectedcard"] = selectedcard 
+              }
 
             xPay?._FrontOffice.paga(apiFrontOfficeQPRequest, navigation: true, parentController: rootViewController, completionHandler: { response in
                 self.handleFrontOffice(response, result: result)
