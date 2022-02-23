@@ -27,9 +27,7 @@ public class SwiftNexiPaymentPlugin: NSObject, FlutterPlugin {
                 do {
                     xPay = try XPay(secretKey: secretKey)
                     xPay?._FrontOffice.SelectedEnvironment = environment == "PROD" ? EnvironmentUtils.Environment.prod : EnvironmentUtils.Environment.test
-                    if !(domain ?? "").isEmpty {
-                        xPay?._FrontOffice.setDomain(newUrl:domain ?? "")
-                    }
+                    xPay?._FrontOffice.setDomain(newUrl:domain)
                     
                     
 
