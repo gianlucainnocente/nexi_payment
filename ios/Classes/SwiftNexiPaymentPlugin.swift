@@ -68,7 +68,7 @@ public class SwiftNexiPaymentPlugin: NSObject, FlutterPlugin {
             let _ = myArgs["currency"] as? String,
             let amount = myArgs["amount"] as? Int {
 
-
+            NSLog(format: String, myArgs) 
           let apiFrontOfficeQPRequest = ApiFrontOfficeQPRequest(alias: alias, codTrans: codTrans, currency: CurrencyUtilsQP.EUR, amount: amount)
 
               apiFrontOfficeQPRequest.ExtraParameters["urlpost"] = urlpost
