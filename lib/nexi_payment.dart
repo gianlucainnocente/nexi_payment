@@ -14,6 +14,8 @@ class NexiPayment {
 
   ///If you like to change the domain of all the HTTP request you must set the domain here (for example: https://newdomain.com)
   String domain;
+  
+  Map<String, String> extraKeys = Map();
 
   NexiPayment({
     required this.secretKey,
@@ -35,6 +37,7 @@ class NexiPayment {
     await _initXPay(secretKey, environment, domain);
     ApiFrontOfficeQPRequest request =
         ApiFrontOfficeQPRequest(alias, codTrans, currency, amount);
+    request.extraKeys = extraKeys;
     var res =
         await _channel.invokeMethod("xPayFrontOfficePaga", request.toMap());
     return res;
