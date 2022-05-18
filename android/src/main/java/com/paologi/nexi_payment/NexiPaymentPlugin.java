@@ -5,8 +5,12 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 
+import org.json.JSONObject;
+
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
+import java.util.Map;
+
 import io.flutter.Log;
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.embedding.engine.plugins.activity.ActivityAware;
@@ -111,17 +115,20 @@ public class NexiPaymentPlugin implements FlutterPlugin, MethodCallHandler, Acti
       @Override
       public void onConfirm(ApiFrontOfficeQPResponse apiFrontOfficeQPResponse) {
         if(apiFrontOfficeQPResponse.isValid()) {
-          result.success("OK");
+          result.success(apiFrontOfficeQPResponse.getExtraParameters().toString());
           Log.i(TAG, "QP Payment successful with circuit card: " +apiFrontOfficeQPResponse.getBrand());
         } else {
           String message = "Auth Denied";
           if (apiFrontOfficeQPResponse.getError() != null) {
             message = apiFrontOfficeQPResponse.getError().getMessage();
           }
-          Log.i(TAG, "QP Payment error: " + message);
-          result.success("QP Payment error: " + message);
+          Map map = new HashMap(apiFrontOfficeQPResponse.getExtraParameters());
+          Log.i(TAG, "QP Payment error: " + map +" AND "+apiFrontOfficeQPResponse.getExtraParameters().toString());
+          JSONObject obj=new JSONObject(map);
+          result.success(obj.toString());
         }
       }
+
 
       @Override
       public void onError(ApiErrorResponse error) {
