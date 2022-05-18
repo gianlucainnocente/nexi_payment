@@ -89,21 +89,36 @@ public class SwiftNexiPaymentPlugin: NSObject, FlutterPlugin {
     private func handleFrontOffice(_ response: ApiFrontOfficeQPResponse, result: @escaping FlutterResult) {
 
         var message = "Payment was canceled by user"
-        if response.IsValid {
-            if !response.IsCanceled {
-                message = "Payment was successful with the circuit \(response.Brand!)"
-                result("OK")
+        
+        do {
+            let encodedDictionary = try JSONEncoder().encode(response.ExtraParameters)
+            let str = String(decoding: encodedDictionary, as: UTF8.self)
+            print(encodedDictionary)
+            
+            if response.IsValid {
+                if !response.IsCanceled {
+                    message = "Payment was successful with the circuit \(response.Brand!)"
+                    result("OK")
+                }
+                result(str)
+
+            } else {
+                message = "There were errors during payment process"
+                
+                result(str)
+
             }
-            result("Cancelled by the user")
-
-        } else {
-            message = "There were errors during payment process"
-            result(message)
-
+        } catch {
+            print("Error: ", error)
+            result("KO")
         }
+        
+        
     }
 
 
 
 
 }
+
+
