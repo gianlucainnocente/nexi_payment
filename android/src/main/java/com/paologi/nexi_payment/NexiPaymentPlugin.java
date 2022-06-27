@@ -115,7 +115,8 @@ public class NexiPaymentPlugin implements FlutterPlugin, MethodCallHandler, Acti
       @Override
       public void onConfirm(ApiFrontOfficeQPResponse apiFrontOfficeQPResponse) {
         if(apiFrontOfficeQPResponse.isValid()) {
-          result.success(apiFrontOfficeQPResponse.getExtraParameters().toString());
+          //result.success(apiFrontOfficeQPResponse.getExtraParameters().toString());
+          result.success("OK");
           Log.i(TAG, "QP Payment successful with circuit card: " +apiFrontOfficeQPResponse.getBrand());
         } else {
           String message = "Auth Denied";
