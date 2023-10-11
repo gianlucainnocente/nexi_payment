@@ -44,7 +44,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.5' // Libreria di XPay
     implementation 'it.nexi.xpay:XPaySDK:1.2.1' // (è possibile specificare il numero di versione)
 // Se si desidera utilizzare anche Google Pay
-    // implementation 'com.google.android.gms:play-services-wallet:16.0.1'
+    implementation 'com.google.android.gms:play-services-wallet:16.0.1'
 // Se si desidera utilizzare le Custom Chrome Tabs
-    //  implementation 'com.android.support:customtabs:28.0.0'
+    implementation 'com.android.support:customtabs:28.0.0'
 }
